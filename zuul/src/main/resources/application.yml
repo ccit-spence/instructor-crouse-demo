@@ -1,0 +1,37 @@
+info:
+  component: Zuul Server
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+zuul:
+  routes:
+    instructor-service: /instructors/**
+    course-service: /courses/**
+
+#remove when spring-boot 1.2.1 is out
+security:
+  basic:
+    enabled: false
+management:
+  security:
+    enabled: false
+
+server:
+  port: 8765
+
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.web: DEBUG
+
+eureka:
+  client:
+    enabled: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

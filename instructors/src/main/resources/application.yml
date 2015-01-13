@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: instructor-service
+
+server:
+  port: 8070
+
+integration:
+  courses:
+    uri: http://localhost:8075
+
+logging:
+  level:
+    com.netflix.discovery: 'OFF'
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 30
+    statusPageUrlPath: /admin/info
+    healthCheckUrlPath: /admin/health
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
