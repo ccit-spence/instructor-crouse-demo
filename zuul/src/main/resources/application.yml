@@ -11,8 +11,12 @@ endpoints:
 
 zuul:
   routes:
-    instructor-service: /instructors/**
-    course-service: /courses/**
+    instructor-service:
+      path: /arm/instructors/**
+      strip-prefix: false
+    course-service:
+      path: /pms/courses/**
+      strip-prefix: false
 
 #remove when spring-boot 1.2.1 is out
 security:

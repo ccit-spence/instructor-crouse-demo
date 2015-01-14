@@ -45,15 +45,25 @@ public class CourseIntegration {
             coursesUri = URI.create(String.format("http://%s:%s", instance.getHost(), instance.getPort()));
         }
         catch (RuntimeException e) {
-            // Eureka not available
+            e.printStackTrace();
         }
 
         logger.info("Trying to access the course service at {}…", coursesUri);
 
-        Traverson traverson = new Traverson(coursesUri, MediaTypes.HAL_JSON);
-        Link link = traverson.follow("courses", "search", "by-related")
-                .withHeaders(headers)
-                .withTemplateParameters(parameters).asLink();
+        Link link = null;
+            try {
+                Traverson traverson = new Traverson(coursesUri, MediaTypes.HAL_JSON);
+                link = traverson.follow("courses", "search", "by-related")
+                        .withHeaders(headers)
+                        .withTemplateParameters(parameters).asLink();
+
+                logger.info("Found courses link pointing to {}.", link.getHref());
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+
+            }
 
         logger.info("Found courses link pointing to {}.", link.getHref());
 
